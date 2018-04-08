@@ -13,6 +13,8 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.connection.autocommit" value="true" />
+			<property name="transaction.factory_class" value="org.hibernate.transaction.JDBCTransactionFactory" />
 		</properties>
 	</persistence-unit>
 </persistence>

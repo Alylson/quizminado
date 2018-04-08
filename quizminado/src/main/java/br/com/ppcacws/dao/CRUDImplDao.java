@@ -1,128 +1,152 @@
 package br.com.ppcacws.dao;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 
-@Resource
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import br.com.ppcacws.resources.EntityManagerProducer;
+
+@Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class CRUDImplDao<T> implements CRUDDao<T> {
 
-	@Inject
-	private EntityManager em;
-	
 	private Class<T> entidade;
-	
-	
-	public CRUDImplDao() {
-		
-	}
-	
+
+
 	public CRUDImplDao(Class<T> entidade) {
-		
+
 		this.entidade = entidade;
 	}
-	
-	
+
+	//TODO VERIFICAR PORQUE NÃO ESTÁ INSERINDO???
 	@Override
-	public void salvar(T Entidade) {
+	public void salvar(T entidade) {
 		
+		Transaction transaction = null;
+
 		try {
-			
-			em.getTransaction().begin();
-			
-			em.clear();
-			
-			em.persist(entidade);
-			
-			em.flush();
-			
-			em.getTransaction().commit();
-			
+
+			Session session = (Session) getEntityManager().getDelegate();
+
+			transaction = session.getTransaction();
+
+			if(!transaction.isActive())
+				session.beginTransaction();
+
+			getEntityManager().persist(entidade);
+
+			//TODO SE FIZER O FLUSH DÁ ERRO
+			//getEntityManager().flush();
+
+			transaction.commit();
+
 		} catch (Exception e) {
-			
-			em.getTransaction().rollback();
-			
+
 			e.printStackTrace();
-			
+
+			transaction.rollback();
+
 		} finally {
-			
-			em.close();
+
+			getEntityManager().close();
 		}
 	}
 
 	@Override
 	public T recuperar(Integer id) {
-		
+
 		T t = null;
-		
+
 		try {
-			
-			t = (T) em.find(entidade, id);
-			
+
+			t = (T) getEntityManager().find(entidade, id);
+
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
-			
+
 		} finally {
-			
-			em.close();
+
+			getEntityManager().close();
 		}
-		
+
 		return t;
 	}
 
 	@Override
 	public T atualizar(T entidade) {
-		
+
+		Transaction transaction = null;
+
 		try {
-			
-			em.getTransaction().begin();
-			
-			em.clear();
-			
-			entidade = em.merge(entidade);
-			
-			em.flush();
-			
-			em.getTransaction().commit();
-			
+
+			Session session = (Session) getEntityManager().getDelegate();
+
+			transaction = session.getTransaction();
+
+			if(!transaction.isActive())
+				session.beginTransaction();
+
+			entidade = getEntityManager().merge(entidade);
+
+			//getEntityManager().flush();
+
+			transaction.commit();
+
 		} catch (Exception e) {
-			
-			em.getTransaction().rollback();
-			
+
 			e.printStackTrace();
-			
+
+			transaction.rollback();
+
 		} finally {
-			
-			em.close();
+
+			getEntityManager().close();
 		}
-		
+
 		return entidade;
 	}
 
 	@Override
 	public void deletar(T entidade) {
-		
+
+		Transaction transaction = null;
+
 		try {
-			
-			em.getTransaction().begin();
-			
-			em.remove(entidade);
-			
-			em.flush();
-			
-			em.getTransaction().commit();
-			
+
+			Session session = (Session) getEntityManager().getDelegate();
+
+			transaction = session.getTransaction();
+
+			if(!transaction.isActive())
+				session.beginTransaction();
+
+			getEntityManager().remove(entidade);
+
+			//getEntityManager().flush();
+
+			transaction.commit();
+
 		} catch (Exception e) {
-			
-			em.getTransaction().rollback();
-			
+
 			e.printStackTrace();
-			
+
+			transaction.rollback();
+
 		} finally {
-			
-			em.close();
+
+			getEntityManager().close();
 		}
 	}
-	
+
+
+	public EntityManager getEntityManager() {
+
+		return EntityManagerProducer.getEntityManager();
+	}
+
 }
