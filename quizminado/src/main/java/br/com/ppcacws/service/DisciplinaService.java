@@ -2,6 +2,7 @@ package br.com.ppcacws.service;
 
 import java.util.List;
 
+import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,6 +12,7 @@ import br.com.ppcacws.model.Disciplina;
 
 @Named("disciplinaService")
 @RequestScoped
+@ManagedBean
 public class DisciplinaService {
 	
 	@Inject
