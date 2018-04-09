@@ -7,9 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import br.com.ppcacws.model.Disciplina;
+import br.com.ppcacws.model.Questao;
 
-public class DisciplinaRepository {
+public class QuestaoRepository {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private final EntityManager entityManager;
@@ -20,54 +20,54 @@ public class DisciplinaRepository {
 		entityManagerFactory = Persistence.createEntityManagerFactory("quizminado");
 	}
 
-	public DisciplinaRepository() {
+	public QuestaoRepository() {
 
 		entityManager = entityManagerFactory.createEntityManager();
 	}
 
-	public Disciplina getDisciplina(Integer codigo) {
+	public Questao getQuestao(Integer codigo) {
 
-		Disciplina disciplina = null;
+		Questao questao = null;
 
 		try {
 
-			disciplina = (Disciplina) this.entityManager.find(Disciplina.class, codigo);
+			questao = (Questao) this.entityManager.find(Questao.class, codigo);
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return disciplina;
+		return questao;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Disciplina> listarDisciplinas() {
+	public List<Questao> listarQuestoes() {
 
-		List<Disciplina> listaDisciplinas = null;
+		List<Questao> listaQuestoes = null;
 
 		try {
 
-			Query query = this.entityManager.createQuery("SELECT d FROM Disciplina d ORDER BY d.descricaoDisciplina");
+			Query query = this.entityManager.createQuery("SELECT q FROM Questao q ORDER BY q.descricaoQuestao");
 
-			listaDisciplinas = (List<Disciplina>) query.getResultList();
+			listaQuestoes = (List<Questao>) query.getResultList();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return listaDisciplinas;
+		return listaQuestoes;
 	}
 
-	public boolean salvar(Disciplina disciplina) {
+	public boolean salvar(Questao questao) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			this.entityManager.persist(disciplina);
+			this.entityManager.persist(questao);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -75,19 +75,19 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}
 
-	public boolean alterar(Disciplina disciplina) {
+	public boolean alterar(Questao questao) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			disciplina = (Disciplina) this.entityManager.merge(disciplina);
+			questao = (Questao) this.entityManager.merge(questao);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -95,19 +95,19 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}
 
-	public boolean excluir(Disciplina disciplina) {
+	public boolean excluir(Questao questao) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			this.entityManager.remove(disciplina);
+			this.entityManager.remove(questao);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}

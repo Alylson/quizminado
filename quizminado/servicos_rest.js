@@ -7,33 +7,78 @@
 
 /*
 	"projeto_quizminado": [
-		// SERVIÇOS REST SEM CDI
+
+		// ******************************************************** REST SERVICES DISCIPLINA ********************************************************
 		{
+			"description": "Listar Disciplina por Id",
 			"method": "GET",
-			"href": "../quizminado/rest/disciplina/listarDisciplinas", // Listar todas as Disciplinas
+			"href": "../quizminado/rest/disciplina/{id}",
+			"rel": "find"
+		},
+		{
+			"description": "Listar todas as Disciplinas",
+			"method": "GET",
+			"href": "../quizminado/rest/disciplina/listarDisciplinas",
 			"rel": "findAll"
 		},
 		{
+			"description": "Cadastrar Disciplina",
 			"method": "POST",
-			"href": "../quizminado/rest/disciplina/cadastrarDisciplina", // Cadastrar Disciplina
-			"rel": "persist"
-			// Content-Type: application/json
-			// Payload: {"descricaoDisciplina":"nomeDisciplina"}
+			"href": "../quizminado/rest/disciplina/cadastrarDisciplina",
+			"rel": "persist",
+			"content-type": "application/json",
+			"payload": "{"descricaoDisciplina":"descricao"}"
+		},
+		{
+			"description": "Alterar Disciplina",
+			"method": "PUT",
+			"href": "../quizminado/rest/disciplina/alterarDisciplina",
+			"rel": "merge",
+			"content-type": "application/json",
+			"payload": "{"idDisciplina":"id", "descricaoDisciplina":"descricao"}"
+		},
+		{
+			"description": "Deletar Disciplina por Id",
+			"method": "DELETE",
+			"href": "../quizminado/rest/disciplina/deletarDisciplina/{id}",
+			"rel": "delete"
 		}
 		
-		// SERVIÇOS REST COM CDI
+		// ******************************************************** REST SERVICES NIVEL ********************************************************
 		{
+			"description": "Listar Nível por Id",
 			"method": "GET",
-			"href": "../quizminado/rest/disciplina/getListaDisciplinas", // Listar todas as Disciplinas
+			"href": "../quizminado/rest/nivel/{id}",
+			"rel": "find"
+		},
+		{
+			"description": "Listar todo os Níveis",
+			"method": "GET",
+			"href": "../quizminado/rest/nivel/listarNiveis",
 			"rel": "findAll"
 		},
 		{
-			// Observação: não cadastra no banco de dados
+			"description": "Cadastrar Nível",
 			"method": "POST",
-			"href": "../quizminado/rest/disciplina/salvarDisciplina/post", // Cadastrar Disciplina
-			"rel": "persist"
-			// Content-Type: application/json
-			// Payload: {"descricaoDisciplina":"nomeDisciplina"}
+			"href": "../quizminado/rest/nivel/cadastrarNivel",
+			"rel": "persist",
+			"content-type": "application/json",
+			"payload": "{"descricaoNivel":"descricao", "numeroDificuldade":"numero"}"
+		},
+		{
+			"description": "Alterar Nível",
+			"method": "PUT",
+			"href": "../quizminado/rest/nivel/alterarNivel",
+			"rel": "merge",
+			"content-type": "application/json",
+			"payload": "{"idNivel":"id", "descricaoNivel":"descricao", "numeroDificuldade":"numero"}"
+		},
+		{
+			"description": "Deletar Nível por Id",
+			"method": "DELETE",
+			"href": "../quizminado/rest/nivel/deletarNivel/{id}",
+			"rel": "delete"
 		}
+		
 	]
  */ 

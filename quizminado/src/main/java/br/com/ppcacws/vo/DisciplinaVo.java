@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.ppcacws.model.Disciplina;
 
-@XmlRootElement(name = "diciplina")
+@XmlRootElement(name = "disciplina")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DisciplinaVo {
 
@@ -41,6 +41,13 @@ public class DisciplinaVo {
 		}
 		
 		return lista;
+	}
+	
+	public static DisciplinaVo clone(Disciplina disciplinaEntity) {
+		
+		DisciplinaVo disciplina = new DisciplinaVo(disciplinaEntity.getIdDisciplina(), disciplinaEntity.getDescricaoDisciplina());
+		
+		return disciplina;
 	}
 
 

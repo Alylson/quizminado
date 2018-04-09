@@ -7,9 +7,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import br.com.ppcacws.model.Disciplina;
+import br.com.ppcacws.model.Nivel;
 
-public class DisciplinaRepository {
+public class NivelRepository {
 
 	private static EntityManagerFactory entityManagerFactory;
 	private final EntityManager entityManager;
@@ -20,54 +20,54 @@ public class DisciplinaRepository {
 		entityManagerFactory = Persistence.createEntityManagerFactory("quizminado");
 	}
 
-	public DisciplinaRepository() {
+	public NivelRepository() {
 
 		entityManager = entityManagerFactory.createEntityManager();
 	}
 
-	public Disciplina getDisciplina(Integer codigo) {
+	public Nivel getNivel(Integer codigo) {
 
-		Disciplina disciplina = null;
+		Nivel nivel = null;
 
 		try {
 
-			disciplina = (Disciplina) this.entityManager.find(Disciplina.class, codigo);
+			nivel = (Nivel) this.entityManager.find(Nivel.class, codigo);
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return disciplina;
+		return nivel;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Disciplina> listarDisciplinas() {
+	public List<Nivel> listarNiveis() {
 
-		List<Disciplina> listaDisciplinas = null;
+		List<Nivel> listaNiveis = null;
 
 		try {
 
-			Query query = this.entityManager.createQuery("SELECT d FROM Disciplina d ORDER BY d.descricaoDisciplina");
+			Query query = this.entityManager.createQuery("SELECT n FROM Nivel n ORDER BY n.descricaoNivel");
 
-			listaDisciplinas = (List<Disciplina>) query.getResultList();
+			listaNiveis = (List<Nivel>) query.getResultList();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return listaDisciplinas;
+		return listaNiveis;
 	}
 
-	public boolean salvar(Disciplina disciplina) {
+	public boolean salvar(Nivel nivel) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			this.entityManager.persist(disciplina);
+			this.entityManager.persist(nivel);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -75,19 +75,19 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}
 
-	public boolean alterar(Disciplina disciplina) {
+	public boolean alterar(Nivel nivel) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			disciplina = (Disciplina) this.entityManager.merge(disciplina);
+			nivel = (Nivel) this.entityManager.merge(nivel);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -95,19 +95,19 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}
 
-	public boolean excluir(Disciplina disciplina) {
+	public boolean excluir(Nivel nivel) {
 
 		try {
 
 			this.entityManager.getTransaction().begin();
-			this.entityManager.remove(disciplina);
+			this.entityManager.remove(nivel);
 			this.entityManager.getTransaction().commit();
-			
+
 			return true;
 
 		} catch (Exception e) {
@@ -115,7 +115,7 @@ public class DisciplinaRepository {
 			this.entityManager.getTransaction().rollback();
 
 			e.printStackTrace();
-			
+
 			return false;
 		}
 	}
