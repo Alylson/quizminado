@@ -193,7 +193,7 @@ public class NivelRest {
 	@DELETE
 	@Path("/deletarNivel/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deletarCinemaPorId(@PathParam("id") String id) {
+	public Response deletarNivelPorId(@PathParam("id") String id) {
 		
 		JSONObject json = null;
 		

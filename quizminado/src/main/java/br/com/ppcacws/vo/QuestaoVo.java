@@ -15,7 +15,11 @@ public class QuestaoVo {
 
 	private Integer idQuestao;
 	private String descricaoQuestao;
+	
+	private Integer idDisciplina;
 	private DisciplinaVo disciplina;
+	
+	private Integer idNivel;
 	private NivelVo nivel;
 	
 	
@@ -85,11 +89,25 @@ public class QuestaoVo {
 		this.descricaoQuestao = descricaoQuestao;
 	}
 	
+	public Integer getIdDisciplina() {
+		return idDisciplina;
+	}
+	public void setIdDisciplina(Integer idDisciplina) {
+		this.idDisciplina = idDisciplina;
+	}
+	
 	public DisciplinaVo getDisciplina() {
 		return disciplina;
 	}
 	public void setDisciplina(DisciplinaVo disciplina) {
 		this.disciplina = disciplina;
+	}
+	
+	public Integer getIdNivel() {
+		return idNivel;
+	}
+	public void setIdNivel(Integer idNivel) {
+		this.idNivel = idNivel;
 	}
 	
 	public NivelVo getNivel() {

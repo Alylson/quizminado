@@ -33,6 +33,11 @@ public class Questao {
 		
 	}
 	
+	public Questao(String descricaoQuestao) {
+		super();
+		this.descricaoQuestao = descricaoQuestao;
+	}
+	
 	public Questao(String descricaoQuestao, Disciplina disciplina,
 			Nivel nivel) {
 		super();
